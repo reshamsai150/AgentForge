@@ -3,7 +3,7 @@ import json
 import warnings
 
 # Suppress Gemini deprecation warnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
+warnings.simplefilter("ignore", category=FutureWarning)
 
 import google.generativeai as genai
 from typing import Type, TypeVar, Optional
