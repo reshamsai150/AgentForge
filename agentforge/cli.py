@@ -25,7 +25,7 @@ def main():
 
         # Display Summary
         status_color = "green" if response.valid else "red"
-        status_icon = "✅" if response.valid else "❌"
+        status_icon = "âœ…" if response.valid else "âŒ"
         
         console.print(Panel(
             f"[bold {status_color}]{status_icon} Summary:[/bold {status_color}]\n{response.summary}",

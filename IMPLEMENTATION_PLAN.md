@@ -89,22 +89,22 @@ Total Build Time: ~18-20 Hours.
 
 ```text
 agentforge/
-├── agents/             # Agent logic
-│   ├── planner.py      # LLM: Intent -> Plan
-│   ├── executor.py     # Code: Plan -> List[ToolResult]
-│   └── verifier.py     # LLM: (Intent + Results) -> FinalResponse
-├── tools/              # Tool implementations
-│   ├── weather.py      # Weather API client
-│   ├── github.py       # GitHub Search client (Read-only)
-│   └── registry.py     # Tool lookup table
-├── llm/                # LLM communication
-│   ├── client.py       # Wrapper for LLM calls with schema enforcement
-│   └── prompts.py      # Distinct system prompts per agent
-├── schemas.py          # Pydantic models (Plan, Step, ToolResult, FinalResponse)
-├── main.py             # Workflow orchestration
-├── cli.py              # CLI entrypoint
-├── requirements.txt    # Base dependencies
-└── .env.example        # Configuration template
+â”œâ”€â”€ agents/             # Agent logic
+â”‚   â”œâ”€â”€ planner.py      # LLM: Intent -> Plan
+â”‚   â”œâ”€â”€ executor.py     # Code: Plan -> List[ToolResult]
+â”‚   â””â”€â”€ verifier.py     # LLM: (Intent + Results) -> FinalResponse
+â”œâ”€â”€ tools/              # Tool implementations
+â”‚   â”œâ”€â”€ weather.py      # Weather API client
+â”‚   â”œâ”€â”€ github.py       # GitHub Search client (Read-only)
+â”‚   â””â”€â”€ registry.py     # Tool lookup table
+â”œâ”€â”€ llm/                # LLM communication
+â”‚   â”œâ”€â”€ client.py       # Wrapper for LLM calls with schema enforcement
+â”‚   â””â”€â”€ prompts.py      # Distinct system prompts per agent
+â”œâ”€â”€ schemas.py          # Pydantic models (Plan, Step, ToolResult, FinalResponse)
+â”œâ”€â”€ main.py             # Workflow orchestration
+â”œâ”€â”€ cli.py              # CLI entrypoint
+â”œâ”€â”€ requirements.txt    # Base dependencies
+â””â”€â”€ .env.example        # Configuration template
 ```
 
 ---

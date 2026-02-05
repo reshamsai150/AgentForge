@@ -2,7 +2,7 @@
 
 Local AI Operations Assistant with Planner -> Executor -> Verifier architecture.
 
-## 🚀 Setup Instructions
+## ðŸš€ Setup Instructions
 
 ### 1. Prerequisite: Python 3.10+
 Ensure you have Python installed.
@@ -22,7 +22,7 @@ Add these keys:
 - `WEATHER_API_KEY`: From OpenWeatherMap.
 - `GITHUB_TOKEN`: GitHub Personal Access Token (Read-only search permissions).
 
-## 🛠️ How to Run
+## ðŸ› ï¸ How to Run
 
 Run the assistant using the CLI module:
 
@@ -30,12 +30,12 @@ Run the assistant using the CLI module:
 python -m agentforge.cli "What is the weather in London and search for popular rust repositories?"
 ```
 
-## 🏗️ Architecture
+## ðŸ—ï¸ Architecture
 
 - **Planner (LLM)**: Decomposes task into tool steps.
 - **Executor (Python)**: Deterministic execution of steps (ZERO LLM calls).
 - **Verifier (LLM)**: Validates results against original intent.
 
-## 🛠️ Tools Available
+## ðŸ› ï¸ Tools Available
 - **Weather**: Current weather data.
 - **GitHub Search**: Search for repositories (Read-only).

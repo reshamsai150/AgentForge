@@ -18,4 +18,4 @@ class ToolResult(BaseModel):
 class FinalResponse(BaseModel):
     valid: bool = Field(..., description="Whether the tool results successfully satisfied the user intent")
     summary: str = Field(..., description="A concise natural language summary of the results")
-    results: List[ToolResult] = Field(..., description="The structured results from the executor")
+    results: Optional[List[ToolResult]] = Field(default=None, description="The structured results from the executor")
