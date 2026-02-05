@@ -6,7 +6,11 @@ from rich.live import Live
 from rich.spinner import Spinner
 from .main import run_agent
 
-console = Console()
+try:
+    console = Console()
+except Exception:
+    # Fallback for environments where terminal size detection fails
+    console = Console(width=100, force_terminal=True)
 
 def run_with_task(user_task: str):
     try:

@@ -1,5 +1,10 @@
 import os
 import json
+import warnings
+
+# Suppress Gemini deprecation warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
+
 import google.generativeai as genai
 from typing import Type, TypeVar, Optional
 from pydantic import BaseModel, ValidationError
