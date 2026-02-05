@@ -1,41 +1,73 @@
 # AgentForge
 
-Local AI Operations Assistant with Planner -> Executor -> Verifier architecture.
+AgentForge is a local AI Operations Assistant that uses a multi-agent architecture:
 
-## ðŸš€ Setup Instructions
+Planner → Executor → Verifier
 
-### 1. Prerequisite: Python 3.10+
-Ensure you have Python installed.
+It converts natural language tasks into tool calls, executes real APIs (GitHub + Weather), and returns structured validated results.
 
-### 2. Install Dependencies
+## Requirements
+
+Python 3.10+
+
+API keys for:
+- OpenAI or Groq
+- OpenWeather
+- GitHub (read-only)
+
+## Setup
+
+### Clone:
 ```bash
-pip install -r agentforge/requirements.txt
+git clone https://github.com/reshamsai150/AgentForge.git
+cd AgentForge
 ```
 
-### 3. Configure Environment Variables
-Copy `.env.example` to `.env` and add your API keys.
+### Install:
+```bash
+pip install -r requirements.txt
+```
+
+### Configure:
 ```bash
 cp agentforge/.env.example .env
 ```
-Add these keys:
-- `OPENAI_API_KEY`: For Planner and Verifier agents.
-- `WEATHER_API_KEY`: From OpenWeatherMap.
-- `GITHUB_TOKEN`: GitHub Personal Access Token (Read-only search permissions).
+Add your keys inside `.env`.
 
-## ðŸ› ï¸ How to Run
+## Run
 
-Run the assistant using the CLI module:
-
+Example:
 ```bash
-python -m agentforge.cli "What is the weather in London and search for popular rust repositories?"
+python -m agentforge.cli "What is the weather in London?"
 ```
 
-## ðŸ—ï¸ Architecture
+Multi-tool example:
+```bash
+python -m agentforge.cli "Find top 3 GenAI repos and check weather in Hyderabad"
+```
 
-- **Planner (LLM)**: Decomposes task into tool steps.
-- **Executor (Python)**: Deterministic execution of steps (ZERO LLM calls).
-- **Verifier (LLM)**: Validates results against original intent.
+## Architecture
 
-## ðŸ› ï¸ Tools Available
-- **Weather**: Current weather data.
-- **GitHub Search**: Search for repositories (Read-only).
+- **Planner (LLM)**: Generates structured Plan
+- **Executor (Python only)**: Executes tools deterministically (ZERO LLM calls)
+- **Verifier (LLM)**: Validates results and summarizes
+
+All communication uses Pydantic schemas. No raw JSON parsing.
+
+## Project Structure
+```text
+agentforge/
+  agents/
+  tools/
+  llm/
+  schemas.py
+  main.py
+  cli.py
+```
+
+## Notes
+- Runs locally only
+- No database
+- No web server
+- Read-only APIs
+- Built for 24-hour GenAI intern assignment
