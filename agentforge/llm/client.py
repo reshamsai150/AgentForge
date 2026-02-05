@@ -68,4 +68,6 @@ class LLMClient:
                 else:
                     raise e
             except Exception as e:
+                if "429" in str(e) or "ResourceExhausted" in str(e):
+                    raise Exception("Gemini API Quota Exhausted. Please wait 60 seconds and try again.")
                 raise e

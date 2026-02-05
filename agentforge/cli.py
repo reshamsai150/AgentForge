@@ -54,14 +54,9 @@ def run_with_task(user_task: str):
 
     except Exception as e:
         # Fallback to plain print if Rich fails (handles the "too many values to unpack" issue)
-        print(f"\n--- Result ---\n{user_task}")
-        try:
-            from agentforge.main import run_agent
-            resp = run_agent(user_task)
-            print(f"Summary: {resp.summary}")
-            print(f"Valid: {resp.valid}")
-        except Exception as inner_e:
-            print(f"System Error: {str(e)} / {str(inner_e)}")
+        print(f"\n[System Notice] {str(e)}")
+        if "Quota" in str(e):
+            print("Tip: The Gemini Free Tier has a limit of ~15 requests per minute. Please try again in 1 minute.")
 
 def main():
     user_task = " ".join(sys.argv[1:])
