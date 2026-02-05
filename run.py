@@ -1,5 +1,10 @@
 import sys
 import os
+import warnings
+
+# Suppress Gemini deprecation warnings early
+warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
+
 from dotenv import load_dotenv
 
 # Ensure the root directory is in path

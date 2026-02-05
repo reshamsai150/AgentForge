@@ -1,4 +1,9 @@
 import sys
+import warnings
+
+# Suppress Gemini deprecation warnings early
+warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
