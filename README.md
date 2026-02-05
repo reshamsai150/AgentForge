@@ -1,73 +1,78 @@
 # AgentForge
 
-AgentForge is a local AI Operations Assistant that uses a multi-agent architecture:
+AgentForge is a local AI Operations Assistant built on a multi-agent orchestrated architecture. It decomposes complex user requests into actionable tool calls, executes them against real-world APIs, and validates the final output against the original user intent.
 
-Planner → Executor → Verifier
-
-It converts natural language tasks into tool calls, executes real APIs (GitHub + Weather), and returns structured validated results.
-
-## Requirements
-
-Python 3.10+
-
-API keys for:
-- OpenAI or Groq
-- OpenWeather
-- GitHub (read-only)
-
-## Setup
-
-### Clone:
+## 🚀 One-Command Execution
+Run the system with a single command:
 ```bash
-git clone https://github.com/reshamsai150/AgentForge.git
-cd AgentForge
+python run.py "What is the weather in London?"
 ```
 
-### Install:
+---
+
+## 🏗 Architecture
+AgentForge uses a deterministic orchestration pattern with three distinct agents:
+
+1.  **Planner (LLM)**: Analyzes user input and decomposes it into a list of specific tool-based steps.
+2.  **Executor (Python)**: A purely deterministic agent that executes the plan sequence. It has **ZERO LLM calls**, ensuring predictable tool behavior and no hallucination during execution.
+3.  **Verifier (LLM)**: Takes the tool outputs and the original request to verify satisfaction and generate a natural language summary.
+
+**Communication**: All agents and tools communicate using strictly enforced **Pydantic schemas**. There is no raw JSON parsing in the core logic.
+
+---
+
+## 🛠 Integrated APIs
+- **Google Gemini (LLM Backend)**: Powers the Planner and Verifier (using the Free Tier).
+- **OpenWeatherMap**: Fetches real-time weather data for any city.
+- **GitHub Search API**: Real-time read-only repository search.
+
+---
+
+## 📋 Setup & Installation
+
+### 1. Requirements
+- Python 3.10+
+- Internet access for API calls
+
+### 2. Install Dependencies
 ```bash
-pip install -r requirements.txt
+pip install -r agentforge/requirements.txt
 ```
 
-### Configure:
+### 3. Environment Configuration
+Copy the template and add your keys:
 ```bash
 cp agentforge/.env.example .env
 ```
-Add your keys inside `.env`.
 
-## Run
+**Required Variables in `.env`:**
+- `GEMINI_API_KEY`: Get from [Google AI Studio](https://aistudio.google.com/app/apikey).
+- `WEATHER_API_KEY`: Get from [OpenWeatherMap](https://home.openweathermap.org/api_keys).
+- `GITHUB_TOKEN`: GitHub Personal Access Token (Classic) with `repo` scope.
 
-Example:
-```bash
-python -m agentforge.cli "What is the weather in London?"
-```
+---
 
-Multi-tool example:
-```bash
-python -m agentforge.cli "Find top 3 GenAI repos and check weather in Hyderabad"
-```
+## 💡 Example Prompts
+- `"What is the weather in New York?"`
+- `"Find the top 5 Python machine learning repositories on GitHub."`
+- `"Check the weather in Tokyo and find top research papers repositories on GitHub."`
 
-## Architecture
+---
 
-- **Planner (LLM)**: Generates structured Plan
-- **Executor (Python only)**: Executes tools deterministically (ZERO LLM calls)
-- **Verifier (LLM)**: Validates results and summarizes
+## ⚠️ Limitations & Tradeoffs
+- **Stateless**: The system does not maintain history between requests (no memory).
+- **Read-Only**: The GitHub tool is restricted to search; it cannot modify code or create issues.
+- **Single-Turn**: If a plan fails, the executor does not attempt to "re-plan" mid-flight (Agentic loop is simple for reliability).
+- **Local Execution**: Runs entirely as a CLI tool; no web UI or persistent database is included to minimize latency and architectural complexity for this 24-hour build.
 
-All communication uses Pydantic schemas. No raw JSON parsing.
+---
 
-## Project Structure
-```text
-agentforge/
-  agents/
-  tools/
-  llm/
-  schemas.py
-  main.py
-  cli.py
-```
-
-## Notes
-- Runs locally only
-- No database
-- No web server
-- Read-only APIs
-- Built for 24-hour GenAI intern assignment
+## 📂 Project Structure
+- `agentforge/`
+  - `agents/`: Planner, Executor, and Verifier implementations.
+  - `tools/`: Deterministic code for Weather and GitHub APIs.
+  - `llm/`: Gemini client with schema enforcement.
+  - `schemas.py`: Central Pydantic models.
+  - `main.py`: Core orchestration logic.
+  - `cli.py`: User interface layer.
+- `run.py`: Simplified entry point.
