@@ -1,17 +1,15 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.venv
-venv/
-ENV/
-env/
+# env
 .env
 
-# IDEs
-.vscode/
-.idea/
+# python
+__pycache__/
+*.pyc
+.venv/
 
-# OS
-.DS_Store
-Thumbs.db
+# logs & temp
+*.log
+*.txt
+
+# random experiments
+discover_*
+test_*
